@@ -14,8 +14,8 @@ function BodyPresenter() {
 
     useEffect(() => {
 
-        BlobRetriever.blobData().then(function(result) {
-            setBlobs(result)
+        BlobRetriever.blobData().then(function(data) {
+            setBlobs(data)
         })
 
     }, [blobs]) 

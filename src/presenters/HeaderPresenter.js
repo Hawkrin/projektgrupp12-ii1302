@@ -12,9 +12,8 @@ function HeaderPresenter( {toggleTheme, theme} ) {
 
     useEffect(() => {
 
-        BlobRetriever.blobData().then(function(result) {
-            console.log(result.reverse());
-            setLastCreatedBlob(result[0].datesAndTime)
+        BlobRetriever.blobData().then(function(data) {
+            setLastCreatedBlob(data[0].datesAndTime)
         })
 
     }, [lastCreatedBlob]) 
