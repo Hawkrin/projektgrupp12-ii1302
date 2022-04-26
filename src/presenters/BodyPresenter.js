@@ -1,14 +1,12 @@
-import * as api_client from '../services/api_client'
 import React, {useState, useEffect} from 'react';
 import BodyView from '../views/BodyView';
 import { useNavigate } from 'react-router-dom';
 import '../views/css/Body.css'
-import { saveAs } from 'file-saver'
 import BlobRetriever from '../services/BlobRetriever'
+import { BsArrowDownUp } from "react-icons/bs";
 
 function BodyPresenter() {
 
-    // Navigate the user around the website
     const navigate = useNavigate();
     const [blobs, setBlobs] = useState([]);
 
@@ -18,35 +16,47 @@ function BodyPresenter() {
             setBlobs(data)
         })
 
-    }, [blobs]) 
+    }, []) 
+
     
-    const redirect = (index, blob) => {
-        return navigate("/summary/" + index, {
-            blob
-        });
+    /**
+     * Used to redirect to a specific blobs summary page
+     * 
+     * @param {blobs index number} index 
+     * @param {the blob object} blob 
+     * @returns navigates to the page
+     */
+    const redirect = (blobs) => {
+        return navigate("/summary/" + blobs
+        );
     }
 
-    // console.log(blobs)
-    // const downloadImage = () => {
-    //     saveAs(api_client.get_image_url(blobs[0][0]), blobs[0][0])
-    //     saveAs(blobs[0][1], "hello world.txt");
-    // }
+    /**
+     * Reverses the order of the array of blobs
+     */
+    const reverseOrderButton = () => {
+        var y = [...blobs].reverse()
+        setBlobs(y);
+    }
 
     return (
         <div className="bodyPresenter">
+            <div className="bodyButtons">
+                <button className="reverseButton" onClick={reverseOrderButton} title="reverse order"><BsArrowDownUp/></button>
+            </div>
                 {blobs.map((blob, i) => (
                     <div key={i} className="elementBox">
                         <BodyView
+                            name={blob.name}
                             images={blob.images}
                             datesAndTime={blob.datesAndTime}  
                             index = {i}
                             redirect={redirect}
                             key={i}   
-                            blob={blob}    
+                            blobs={blob}  
                         />
                     </div>
                 ))}   
-                {/* <button onClick={downloadImage}>DOWNLOAD TEST</button> */}
         </div >
     )
 }

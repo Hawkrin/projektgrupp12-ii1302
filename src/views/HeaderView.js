@@ -18,8 +18,8 @@ function HeaderView( { lastCreatedBlob, home, toggleTheme, theme } ) {
         <div>
             <div className="headerContainer">
                 <div className="leftContainer"> 
-                    <h3>Last uploaded foto: </h3>
-                    <div className="lastCreatedText"> {lastCreatedBlob}</div>
+                    <h2 className="">Last uploaded foto: </h2>
+                    <div className="lastCreatedText">{lastCreatedBlob}</div>
                 </div>
                 <div className="middlecontainer">
                     <span className="headerTitle">KTH-LINK</span>
@@ -27,7 +27,6 @@ function HeaderView( { lastCreatedBlob, home, toggleTheme, theme } ) {
                 <div className="rightContainer">
                     <FaHome className="homeIcon" onClick={home} />
                     <ToggleSwitch className="themeSwitch" /> 
-
                 </div>
             </div>
         </div>

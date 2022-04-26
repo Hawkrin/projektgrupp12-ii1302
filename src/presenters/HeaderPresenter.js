@@ -16,7 +16,7 @@ function HeaderPresenter( {toggleTheme, theme} ) {
             setLastCreatedBlob(data[0].datesAndTime)
         })
 
-    }, [lastCreatedBlob]) 
+    }, []) 
 
     function home(e) {
         e.preventDefault();
