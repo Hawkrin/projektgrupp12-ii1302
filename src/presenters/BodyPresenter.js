@@ -4,19 +4,40 @@ import { useNavigate } from 'react-router-dom';
 import '../views/css/Body.css'
 import BlobRetriever from '../services/BlobRetriever'
 import { BsArrowDownUp } from "react-icons/bs";
+import { useSelector, useDispatch } from 'react-redux'
+import { getBlobsAsync } from '../services/BlobRetriever'
+import { configureStore } from '@reduxjs/toolkit';
+import blobReducer from '../services/BlobRetriever'
+
 
 function BodyPresenter() {
 
     const navigate = useNavigate();
     const [blobs, setBlobs] = useState([]);
 
+    // const store = configureStore({
+    //     reducer: blobReducer,
+    //     middleware: (getDefaultMiddleware) =>
+    //         getDefaultMiddleware({
+    //             serializableCheck: false,
+    //         }),
+    //     })
+
+    // useEffect(() => {
+
+    //     BlobRetriever.blobData().then(function(data) {
+    //         setBlobs(data)
+    //     })
+
+    // }, []) 
+
+    const dispatch = useDispatch();
+    const blob = useSelector((state) => state.blob);
+
+
     useEffect(() => {
-
-        BlobRetriever.blobData().then(function(data) {
-            setBlobs(data)
-        })
-
-    }, []) 
+        dispatch(getBlobsAsync())
+    }, [getBlobsAsync])
 
     
     /**

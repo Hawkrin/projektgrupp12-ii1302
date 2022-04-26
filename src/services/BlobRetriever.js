@@ -1,4 +1,6 @@
 import * as api_client from './api_client'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 
 /**
  * Retrieves data from Azure blob storage
@@ -6,6 +8,7 @@ import * as api_client from './api_client'
  * @returns an array of blobs
  */
 
+export const getBlobsAsync = createAsyncThunk("getblobs",
     async function blobData() {
 
         let blobs = api_client.containerClient.listBlobsFlat();
@@ -27,13 +30,13 @@ import * as api_client from './api_client'
                 leaseStatus: blob.properties.leaseStatus,
                 leaseState: blob.properties.leaseState,
                 serverEncrypted: blob.properties.serverEncrypted,
-                datesAndTime: 
-                blob.properties.createdOn.getDate() + "/" + 
-                (blob.properties.createdOn.getMonth()+1) + "-" + 
-                blob.properties.createdOn.getFullYear() + " " + 
-                blob.properties.createdOn.getHours() + ":" + 
-                blob.properties.createdOn.getMinutes() + ":" + 
-                blob.properties.createdOn.getSeconds(),
+                // datesAndTime: 
+                // blob.properties.createdOn.getDate() + "/" + 
+                // (blob.properties.createdOn.getMonth()+1) + "-" + 
+                // blob.properties.createdOn.getFullYear() + " " + 
+                // blob.properties.createdOn.getHours() + ":" + 
+                // blob.properties.createdOn.getMinutes() + ":" + 
+                // blob.properties.createdOn.getSeconds(),
                 blob,
                 index
             } 
@@ -42,6 +45,33 @@ import * as api_client from './api_client'
             index++;
         }
         return arrayForBlobs;
-    }
+    })
 
-export default { blobData }
+    export const blobSlice = createSlice({
+        name: "blobs",
+        initialState: [],
+        reducers: {
+            [getBlobsAsync.fulfilled]: (state, action) => {
+                return action.payload.blobs
+            }
+        }
+    })
+
+    /**https://stackoverflow.com/questions/61704805/getting-an-error-a-non-serializable-value-was-detected-in-the-state-when-using/68509710#68509710 */
+    configureStore({
+        reducer: blobSlice.reducer,
+        middleware: (getDefaultMiddleware) =>
+          getDefaultMiddleware({
+            serializableCheck: {
+              // Ignore these action types
+              ignoredActions: ['your/action/type'],
+              // Ignore these field paths in all actions
+              ignoredActionPaths: ['meta.arg', 'payload.timestamp'],
+              // Ignore these paths in the state
+              ignoredPaths: ['items.dates'],
+            },
+          }),
+      })
+
+
+export default blobSlice.reducer

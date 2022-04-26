@@ -10,13 +10,13 @@ function HeaderPresenter( {toggleTheme, theme} ) {
     const [lastCreatedBlob, setLastCreatedBlob] = useState("");
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        BlobRetriever.blobData().then(function(data) {
-            setLastCreatedBlob(data[0].datesAndTime)
-        })
+    //     BlobRetriever.blobData().then(function(data) {
+    //         setLastCreatedBlob(data[0].datesAndTime)
+    //     })
 
-    }, []) 
+    // }, []) 
 
     function home(e) {
         e.preventDefault();
