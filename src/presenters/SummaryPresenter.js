@@ -1,25 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect } from 'react';
 import SummaryView from '../views/SummaryView'
-import * as api_client from '../services/api_client'
-import { saveAs } from 'file-saver'
+// import * as api_client from '../services/api_client'
+// import { saveAs } from 'file-saver'
 import '../views/css/Summary.css'
-import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { getBlobsAsync } from '../services/BlobRetriever'
+import { getBlobs } from '../services/BlobRetriever'
 
 
 function SummaryPresenter() {
-    const dispatch = useDispatch();
-    const blob = useSelector((state) => state.blob.value);
 
+    const dispatch = useDispatch();
+    const {blobs} = useSelector(state => state.blobs)
 
     useEffect(() => {
-        dispatch(getBlobsAsync())
-    }, [getBlobsAsync])
+        dispatch(getBlobs())
+    }, [dispatch])
 
-    // const {blobs} = useParams();
 
-    // console.log(blobs)
+
 
     // /**
     //  * Downloads the image to the computer
@@ -32,6 +30,7 @@ function SummaryPresenter() {
         <div className="summmaryPresenter">
             <SummaryView
                 // downloadImageButton={downloadImageButton}
+                blobs={blobs}
             />
         </div>  
     )

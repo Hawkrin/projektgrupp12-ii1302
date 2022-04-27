@@ -5,7 +5,7 @@ import { FaHome } from "react-icons/fa";
 
 function HeaderView( { lastCreatedBlob, home, toggleTheme, theme } ) {
 
-    function ToggleSwitch() {
+    const ToggleSwitch = () => {
         return(
             <label className="form-switch">
                 <input type="checkbox" onChange={toggleTheme} checked={theme === "dark"}/>
