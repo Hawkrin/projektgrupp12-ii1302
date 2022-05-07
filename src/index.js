@@ -1,24 +1,25 @@
 import React from 'react';
-import {createRoot} from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import App from './App';
-import {configureStore} from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux';
-import blobReducer from './services/BlobRetriever'
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-// import { PersistGate } from 'redux-persist/es/integration/react'
+import { PersistGate } from 'redux-persist/es/integration/react'
+// import blobReducer from './services/BlobRetrieverAzure'
+import blobReducer from './services/BlobRetrieverFireBase'
 
 
-const persistConfig = {
-  key:'persist-key',
-  storage,
-}
+/**
+ * All persist code work like local storage but for redux
+ */
+const persistConfig = {key:'persist-key',storage }
 
 const persistedReducer = persistReducer(persistConfig, blobReducer)
 
 const store = configureStore({
   reducer: { 
-      blobs: blobReducer, 
+      blobs: persistedReducer, 
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -26,7 +27,7 @@ const store = configureStore({
     }),
 })
 
-const persistorStore = persistStore(store)
+const persistor = persistStore(store)
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -34,9 +35,9 @@ const root = createRoot(rootElement);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <PersistGate loading={null} persistorStore={persistorStore}> */}
+      <PersistGate loading={null} persistor={persistor}>
         <App />
-      {/* </PersistGate> */}
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
 );
