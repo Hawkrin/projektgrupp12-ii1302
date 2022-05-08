@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "file-saver": "^2.0.5",
     "firebase": "^9.8.0",
+    "firebase-admin": "^10.2.0",
     "install": "^0.13.0",
     "nodemon": "^2.0.15",
     "npm": "^8.7.0",

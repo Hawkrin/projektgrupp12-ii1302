@@ -7,6 +7,7 @@ import { VscAzure, VscGoToFile } from "react-icons/vsc"
 import { GiCctvCamera } from "react-icons/gi"
 import { useSelector, useDispatch } from 'react-redux'
 import { SiFirebase } from 'react-icons/si'
+import { GrRefresh } from 'react-icons/gr'
 import { getBlobsAzure } from '../services/BlobRetrieverAzure'
 import { getBlobsFirebase } from '../services/BlobRetrieverFireBase'
 
@@ -17,7 +18,9 @@ function BodyPresenter() {
     const {blobs}  = useSelector(state => state.blobs);
     const [blobArray, setBlobArray] = useState(blobs)
     const [searchTerm, setSearchTerm] = useState('')
+    const [blobArrayLength, setBlobArrayLength] = useState(blobArray.length)
 
+    
     useEffect(() => {
         dispatch(getBlobsFirebase())
     }, [dispatch])
@@ -93,6 +96,7 @@ function BodyPresenter() {
                 <input className="searchBar" type="text" onChange={event => setSearchTerm(event.target.value)} placeholder='Search for date...'/>
                 <button className="lastUploadedImageButton" onClick={() => redirectToSummaryPage((blobArray[blobArray.length-1].index))} title="go to most recent picture"><VscGoToFile/></button>
                 <button className="reverseButton" onClick={reverseOrderButton} title="reverse order"><BsArrowDownUp/></button>
+                <button className="azureLinkButton" onClick={() => window.location.reload()} title="retrieve new image"><GrRefresh/></button>
                 <button className="azureLinkButton" onClick={redirectToCameraPage} title="camera info"><GiCctvCamera/></button>
                 <button className="azureLinkButton" onClick={goToAzureBlobStorageButton} title="go to Azure"><VscAzure/></button>
                 <button className="azureLinkButton" onClick={goToFireBaseStorageButton} title="go to Firebase"><SiFirebase/></button>

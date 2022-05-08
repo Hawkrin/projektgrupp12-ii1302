@@ -8,7 +8,7 @@ function SummaryView( {
     name, images, etag, contentType, datesAndTime, 
     viewImageInBrowserButton, index, redirectToNextBlob, redirectToPreviousBlob,
     totalNumberOfBlobs, deleteBlobButton, bucket, contentEncoding, crc32c,  generation,
-    md5Hash, metageneration, size,  storageClass, 
+    md5Hash, metageneration, size,  storageClass, downloadImageFirebase,
     } ) {
 
     return (
@@ -40,9 +40,9 @@ function SummaryView( {
                     <div>Generation: 
                         <div className="data">{generation}</div>
                     </div>
-                    <div>Meta Generation: 
+                    {/* <div>Meta Generation: 
                         <div className="data">{metageneration}</div>
-                    </div>
+                    </div> */}
                     <div>Size: 
                         <div className="data">{size}</div>
                     </div>
@@ -58,9 +58,12 @@ function SummaryView( {
                 <button className="viewInBrowserButton" onClick={() => viewImageInBrowserButton(name)} title="View in browser">
                     <BsGlobe/>
                 </button>
-                <button className="deleteBlobButton" onClick={() => deleteBlobButton(name)} title="delete blob">
+                <button className="deleteBlobButton" onClick={() => deleteBlobButton(name, index)} title="delete blob">
                         <BsFillTrashFill/>
                 </button>
+                <button className="deleteBlobButton" onClick={() => downloadImageFirebase(name)} title="delete blob">
+                        <AiOutlineDownload/>
+                </button> 
             </div>
             <div className="summaryButtonsContainer">
                 <div className="nextSummaryButtonContainer">
