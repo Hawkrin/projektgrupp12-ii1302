@@ -87,10 +87,11 @@ function SummaryPresenter() {
                 api_client_fireBase.delete_image(blobName)
                 navigate("/home")
             }
-            else {
+            if(currentBlob.index === blobs.length-1) {
                 api_client_fireBase.delete_image(blobName)
+                redirectToPreviousBlob(index - 1)
                 setTotalNumberOfBlobs(totalNumberOfBlobs)
-                redirectToPreviousBlob(index)
+                
             }
         } 
         else {

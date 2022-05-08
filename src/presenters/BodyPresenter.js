@@ -18,9 +18,9 @@ function BodyPresenter() {
     const {blobs}  = useSelector(state => state.blobs);
     const [blobArray, setBlobArray] = useState(blobs)
     const [searchTerm, setSearchTerm] = useState('')
-    const [blobArrayLength, setBlobArrayLength] = useState(blobArray.length)
-
     
+
+
     useEffect(() => {
         dispatch(getBlobsFirebase())
     }, [dispatch])

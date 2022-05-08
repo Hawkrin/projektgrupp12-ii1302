@@ -2,37 +2,6 @@
 import { ref, listAll } from "firebase/storage";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api_client_fireBase from './api_client_Firebase'
-// import { useEffect, useRef} from 'react';
-
-    // const alertWhenImageIsAdded = () => {
-    //     if (window.confirm('Really go to another page?')) {
-    //     }
-    //     else {
-    //         return;
-    //     }   
-    // }
-
-    // const REFRESH_INTERVAL = 1;
-
-    // function useInterval(callback, delay) {
-    //     const savedCallBack = useRef();
-
-    //     useEffect(() => {
-    //         savedCallBack.current = callback;
-    //     }, [callback])
-
-    //     useEffect(() => {
-    //         function tick() {
-    //             savedCallBack.current();
-    //         }
-    //         if(delay !== null) {
-    //             const id = setInterval(tick, delay);
-    //             return () => {
-    //                 clearInterval(id);
-    //             }
-    //         }
-    //     }, [callback, delay])
-    // }
 
 export const getBlobsFirebase = createAsyncThunk("blobs/getBlobsFirebase",
     (async () => {

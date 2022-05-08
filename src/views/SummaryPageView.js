@@ -78,7 +78,9 @@ function SummaryView( {
                 </div>
             </div>
             <div className="pageNumber">
-                {index}({totalNumberOfBlobs})
+                {index + 1}({totalNumberOfBlobs + 1})
+                
+                
             </div>
         </div>
     )
